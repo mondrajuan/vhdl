@@ -1,8 +1,6 @@
 library IEEE; -- Se importa la librería estándar de IEEE
 use IEEE.STD_LOGIC_1164.ALL; -- Permite usar tipos de datos digitales como std_logic
-
 -- Entidad (Aquí se definen TODAS las entradas y salidas del sistema)
-
 entity finalcorte is -- Nombre del módulo principal del proyecto
     Port ( -- Inicio de la definición de puertos
         clk              : in  std_logic;  -- Reloj principal del sistema que sincroniza todo
@@ -17,13 +15,9 @@ entity finalcorte is -- Nombre del módulo principal del proyecto
         segdec_menos35   : out std_logic_vector(6 downto 0)  -- Display decenas para tiempo antes de 35s
     );
 end finalcorte; -- Fin de la entidad
-
 -- ARCHITECTURE (Se diseña el funcionamiento interno del sistema)
-
 architecture pro of finalcorte is -- Se define la arquitectura del sistema
-
     -- COMPONENTE 1 (Contador que se activa cuando se superan los 35 segundos)
-
     component finalcarot12 is -- Declaración del componente contador de exceso
         Port (
             clk        : in  std_logic; -- Reloj del componente
@@ -35,9 +29,7 @@ architecture pro of finalcorte is -- Se define la arquitectura del sistema
             segdec_out : out std_logic_vector(6 downto 0)  -- Display decenas del exceso
         );
     end component; -- Fin del componente
-
     -- COMPONENTE 2 (Contador que funciona desde 0 hasta 35 segundos)
-
     component menos35seg is -- Declaración del contador principal
         Port (
             clk              : in  std_logic; -- Reloj del componente
@@ -50,9 +42,7 @@ architecture pro of finalcorte is -- Se define la arquitectura del sistema
             done_35s         : out std_logic  -- Señal que indica que se llegó a 35 segundos
         );
     end component; -- Fin del componente
-
     -- SEÑALES INTERNAS (Son cables internos que conectan los módulos)
-
     signal led_alarma_int       : std_logic; -- Señal interna para LED de alarma
     signal seguni_exceso_int    : std_logic_vector(6 downto 0); -- Señal interna unidades exceso
     signal segdec_exceso_int    : std_logic_vector(6 downto 0); -- Señal interna decenas exceso
@@ -66,11 +56,8 @@ architecture pro of finalcorte is -- Se define la arquitectura del sistema
     signal stop_flanco          : std_logic := '0'; -- Señal que detecta flanco de bajada en stop
     type state_type is (IDLE, COUNTING, DONE_OK, DONE_EXCESO); -- Definición de los estados del sistema
     signal state : state_type := IDLE; -- Estado inicial del sistema
-
 begin -- Inicio de la arquitectura
-
     -- Instancia del contador de exceso
-
     u_exceso: finalcarot12 -- Se crea una instancia del componente
         port map( -- Conexión de sus puertos
             clk        => clk, -- Se conecta al reloj principal
@@ -81,9 +68,7 @@ begin -- Inicio de la arquitectura
             seguni_out => seguni_exceso_int, -- Display unidades exceso
             segdec_out => segdec_exceso_int -- Display decenas exceso
         );
-
     -- Instancia del contador principal (0 a 35 segundos)
-
     u_menos35: menos35seg -- Instancia del contador principal
         port map(
             clk              => clk, -- Conectado al reloj
@@ -95,13 +80,10 @@ begin -- Inicio de la arquitectura
             segdec_out       => segdec_menos35_int, -- Display decenas
             done_35s         => done_35s_int -- Señal que indica que llegó a 35 segundos
         );
-
     -- Proceso que detecta cuando se presiona un botón (detección de flancos)
-
     process(clk) -- Proceso sincronizado con el reloj
     begin
         if rising_edge(clk) then -- Se ejecuta en cada flanco positivo del reloj
-
             start_n_prev <= start_n; -- Guarda el valor anterior del botón start
             stop_n_prev <= stop_n; -- Guarda el valor anterior del botón stop
             start_flanco <= '0'; -- Reinicia señal de detección de start
@@ -114,9 +96,7 @@ begin -- Inicio de la arquitectura
             end if;
         end if;
     end process;
-	 
     -- Máquina de estados principal del sistema
-	 
     process(clk, reset_n) -- Proceso dependiente del reloj y del reset
     begin
         if reset_n = '0' then -- Si se presiona reset
@@ -142,9 +122,7 @@ begin -- Inicio de la arquitectura
             end case;
         end if;
     end process;
-	 
     -- Proceso que decide qué displays se deben mostrar
-	 
     process(state, seguni_menos35_int, segdec_menos35_int,
             seguni_exceso_int, segdec_exceso_int)
     begin

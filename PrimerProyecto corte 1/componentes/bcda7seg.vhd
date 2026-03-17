@@ -1,17 +1,13 @@
 library IEEE; -- Se importa la librería estándar IEEE
 use IEEE.STD_LOGIC_1164.ALL; -- Permite usar señales digitales como std_logic
-
 -- ENTIDAD (Define las entradas y salidas del componente)
-
-entity bcda7seg is -- Nombre del módulo que convierte BCD a display de 7 segmentos
+entity bcda7seg is
     port (
         A: in  std_logic_vector(3 downto 0);   -- Entrada BCD de 4 bits (número del 0 al 9)
         D: out std_logic_vector(6 downto 0)    -- Salida hacia el display de 7 segmentos
     );
 end entity bcda7seg; -- Fin de la entidad
-
 -- ARQUITECTURA (Aquí se define cómo funciona el conversor)
-
 architecture pro of bcda7seg is -- Nombre de la arquitectura
 begin -- Inicio de la arquitectura
     process (A) -- Proceso que se ejecuta cada vez que cambia la entrada A
