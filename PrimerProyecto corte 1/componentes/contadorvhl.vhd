@@ -17,9 +17,9 @@ signal salida   : std_logic := '0'; -- Señal de salida que generará el nuevo r
 begin -- Inicio de la arquitectura
 -- SELECCIÓN DEL DIVISOR SEGÚN freq_sel
 divisor <= 50000000 when freq_sel = "00" else -- Divide el reloj para obtener la frecuencia más baja
-           25000000 when freq_sel = "01" else -- Frecuencia un poco mayor
-           12500000 when freq_sel = "10" else -- Frecuencia aún mayor
-           6250000; -- Frecuencia más alta disponible en este módulo
+           25000000 when freq_sel = "01" else -- Frecuencia un 2hz
+           12500000 when freq_sel = "10" else -- Frecuencia a 4hz
+           6250000; -- Frecuencia 8Hz
 -- PROCESO PRINCIPAL DEL DIVISOR DE FRECUENCIA
 process(clk) -- El proceso se ejecuta en cada cambio del reloj principal
 begin
