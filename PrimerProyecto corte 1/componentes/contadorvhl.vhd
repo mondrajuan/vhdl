@@ -16,7 +16,7 @@ signal divisor  : integer := 50000000; -- Valor máximo que determina la divisi�
 signal salida   : std_logic := '0'; -- Señal de salida que generará el nuevo reloj
 begin -- Inicio de la arquitectura
 -- SELECCIÓN DEL DIVISOR SEGÚN freq_sel
-divisor <= 50000000 when freq_sel = "00" else -- Divide el reloj para obtener la frecuencia más baja
+divisor <= 50000000 when freq_sel = "00" else -- Frecuencia un 1hz
            25000000 when freq_sel = "01" else -- Frecuencia un 2hz
            12500000 when freq_sel = "10" else -- Frecuencia a 4hz
            6250000; -- Frecuencia 8Hz
