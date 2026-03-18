@@ -135,7 +135,7 @@ begin -- Inicio de la arquitectura
             seguni_exceso  <= seguni_exceso_int; -- Muestra unidades del exceso
             segdec_exceso  <= segdec_exceso_int; -- Muestra decenas del exceso
             seguni_menos35 <= seguni_menos35_int; -- Mantiene congelado el valor del contador principal
-            segdec_menos35 <= segdec_menos35_int;
+            segdec_menos35 <= segdec_menos35_int; -- Mantiene congelado el valor del contador principal
         else -- Estado IDLE
             seguni_menos35 <= (others => '0'); -- Apaga display
             segdec_menos35 <= (others => '0'); -- Apaga display
