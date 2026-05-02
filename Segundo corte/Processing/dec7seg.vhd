@@ -1,6 +1,5 @@
 library ieee; -- Se importa la librería estándar IEEE
 use ieee.std_logic_1164.all; -- Permite usar señales digitales como std_logic
-
 -- ENTIDAD (Define las entradas y salidas del decodificador de 7 segmentos)
 entity dec7seg is -- Nombre del módulo decodificador
   port(
@@ -8,7 +7,6 @@ entity dec7seg is -- Nombre del módulo decodificador
     seg  : out std_logic_vector(6 downto 0)  -- Salida: 7 segmentos del display (a,b,c,d,e,f,g)
   );
 end entity; -- Fin de la entidad
-
 -- ARQUITECTURA (Define el funcionamiento interno del decodificador)
 architecture rtl of dec7seg is
 begin -- Inicio de la arquitectura
@@ -35,5 +33,4 @@ begin -- Inicio de la arquitectura
       when others => seg <= "1111111"; -- Cualquier otro valor → apaga todos los segmentos
     end case;
   end process; -- Fin del proceso de decodificación
-
 end architecture; -- Fin de la arquitectura
