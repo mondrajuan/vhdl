@@ -1,0 +1,77 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity tb_ultimo is
+end entity tb_ultimo;
+
+architecture testbench of tb_ultimo is
+
+  component ultimo
+    port (
+      clk            : in  std_logic;
+      switches       : in  std_logic_vector(2 downto 0);
+      led_out        : out std_logic;
+      ventilador_out : out std_logic
+    );
+  end component;
+
+  signal clk            : std_logic := '0';
+  signal rst            : std_logic := '1';
+  signal switches       : std_logic_vector(2 downto 0) := "000";
+  signal led_out        : std_logic;
+  signal ventilador_out : std_logic;
+  constant CLK_PERIOD   : time := 10 ns;
+
+begin
+
+  dut : ultimo
+    port map (
+      clk            => clk,
+      switches       => switches,
+      led_out        => led_out,
+      ventilador_out => ventilador_out
+    );
+
+  clk_proc : process
+  begin
+    clk <= '0';
+    wait for CLK_PERIOD / 2;
+    clk <= '1';
+    wait for CLK_PERIOD / 2;
+  end process;
+
+  stimulus : process
+  begin
+
+    rst     <= '1';
+    switches <= "000";
+    wait for 5 * CLK_PERIOD;
+    rst <= '0';
+    wait for 2 * CLK_PERIOD;
+
+    switches <= "000";
+    wait for 300 ns;
+
+    switches <= "001";
+    wait for 300 ns;
+
+    switches <= "010";
+    wait for 300 ns;
+
+    switches <= "011";
+    wait for 300 ns;
+
+    switches <= "100";
+    wait for 3000 ns;
+
+    switches <= "011";
+    wait for 300 ns;
+
+    switches <= "000";
+    wait for 300 ns;
+
+    wait;
+  end process;
+
+end architecture testbench;
