@@ -128,10 +128,11 @@ architecture behave of ultimo is
   signal modo          : std_logic;
   signal switch_led    : std_logic;
   signal switch_fan    : std_logic;
-  signal contador_auto : unsigned(23 downto 0);
+  
+  -- Contador ampliado para 5 segundos reales en FPGA a 50MHz
+  signal contador_auto : unsigned(27 downto 0);
   signal estado_auto   : std_logic_vector(1 downto 0);
-
-  constant PERIODO_AUTO : unsigned(23 downto 0) := to_unsigned(50, 24);
+  constant PERIODO_AUTO : unsigned(27 downto 0) := to_unsigned(250000000, 28);
 
 begin
 
@@ -148,6 +149,7 @@ begin
   switch_led <= switches(1);
   switch_fan <= switches(0);
 
+  -- Multiplexor de hardware que inyecta manual o automatico al puerto FF
   entrada_data <= "000000" & switch_led & switch_fan when modo = '0' else
                   "000000" & estado_auto;
 

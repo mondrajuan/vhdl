@@ -25,7 +25,8 @@ architecture rtl of control_unit is
   constant OPC_ST  : std_logic_vector(7 downto 0) := x"02";
   constant OPC_ADD : std_logic_vector(7 downto 0) := x"03";
   constant OPC_SUB : std_logic_vector(7 downto 0) := x"04";
-  constant OPC_AND : std_logic_vector(7 downto 0) := x"05";
+  -- MODIFICADO: Se asinga el codigo 00 para permitir paso por la ALU usando R0
+  constant OPC_AND : std_logic_vector(7 downto 0) := x"00"; 
   constant OPC_OR  : std_logic_vector(7 downto 0) := x"06";
   constant OPC_NOT : std_logic_vector(7 downto 0) := x"07";
   constant OPC_JMP : std_logic_vector(7 downto 0) := x"08";
