@@ -17,10 +17,10 @@ architecture testbench of tb_ultimo is
   end component;
 
   signal clk            : std_logic := '0';
-  signal rst            : std_logic := '1';
   signal switches       : std_logic_vector(2 downto 0) := "000";
   signal led_out        : std_logic;
   signal ventilador_out : std_logic;
+  
   constant CLK_PERIOD   : time := 10 ns;
 
 begin
@@ -43,34 +43,24 @@ begin
 
   stimulus : process
   begin
-
-    rst     <= '1';
-    switches <= "000";
-    wait for 5 * CLK_PERIOD;
-    rst <= '0';
-    wait for 2 * CLK_PERIOD;
+    wait for 50 ns;
 
     switches <= "000";
-    wait for 300 ns;
-
-    switches <= "001";
-    wait for 300 ns;
+    wait for 1000 ns; 
 
     switches <= "010";
-    wait for 300 ns;
+    wait for 1000 ns;
+
+    switches <= "001";
+    wait for 1000 ns;
 
     switches <= "011";
-    wait for 300 ns;
+    wait for 1000 ns;
 
     switches <= "100";
-    wait for 3000 ns;
+    wait for 4000 ns;
 
-    switches <= "011";
-    wait for 300 ns;
-
-    switches <= "000";
-    wait for 300 ns;
-
+    assert false report "Simulacion terminada." severity note;
     wait;
   end process;
 

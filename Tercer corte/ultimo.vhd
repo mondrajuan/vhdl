@@ -132,7 +132,7 @@ architecture behave of ultimo is
   -- Contador ampliado para 5 segundos reales en FPGA a 50MHz
   signal contador_auto : unsigned(27 downto 0);
   signal estado_auto   : std_logic_vector(1 downto 0);
-  constant PERIODO_AUTO : unsigned(27 downto 0) := to_unsigned(250000000, 28);
+  constant PERIODO_AUTO : unsigned(27 downto 0) := to_unsigned(10, 28);
 
 begin
 
