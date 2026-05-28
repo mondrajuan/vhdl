@@ -149,7 +149,6 @@ begin
   switch_led <= switches(1);
   switch_fan <= switches(0);
 
-  -- Multiplexor de hardware que inyecta manual o automatico al puerto FF
   entrada_data <= "000000" & switch_led & switch_fan when modo = '0' else
                   "000000" & estado_auto;
 
